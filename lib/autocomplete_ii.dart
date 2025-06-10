@@ -1,20 +1,5 @@
 import 'package:flutter/material.dart';
 
-// void main() {
-//   runApp(const MyAppDua());
-// }
-
-class MyAppDua extends StatelessWidget {
-  const MyAppDua({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: AutocompleteDialogExample(),
-    );
-  }
-}
-
 class AutocompleteDialogExample extends StatelessWidget {
   AutocompleteDialogExample({super.key});
 

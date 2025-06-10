@@ -8,8 +8,8 @@ import 'package:flutter/material.dart';
 
 const Duration fakeAPIDuration = Duration(seconds: 1);
 
-class AutocompleteExampleApp extends StatelessWidget {
-  const AutocompleteExampleApp({super.key});
+class AutocompleteExampleApp3 extends StatelessWidget {
+  const AutocompleteExampleApp3({super.key});
 
   @override
   Widget build(BuildContext context) {

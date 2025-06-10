@@ -59,7 +59,7 @@ class _AsyncAutocompleteState extends State<_AsyncAutocomplete> {
   /// Menandai apakah ada kesalahan jaringan.
   bool _networkError = false;
 
-  /// Melakukan pencarian dengan query tertentu melalui API simulasi.
+  ///? Melakukan pencarian dengan query tertentu melalui API simulasi.
   Future<Iterable<String>?> _search(String query) async {
     /// menyimpan query saat ini
     _currentQuery = query;
@@ -100,6 +100,7 @@ class _AsyncAutocompleteState extends State<_AsyncAutocomplete> {
     _debouncedSearch = _debounce<Iterable<String>?, String>(_search);
   }
 
+  ///? UI
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -113,14 +114,7 @@ class _AsyncAutocompleteState extends State<_AsyncAutocomplete> {
         ),
 
         /// Switch untuk mengaktifkan/mematikan jaringan.
-        Switch(
-          value: _networkEnabled,
-          onChanged: (bool? value) {
-            setState(() {
-              _networkEnabled = !_networkEnabled;
-            });
-          },
-        ),
+        switchAktifkanNetwork(),
 
         /// memberi jarak vertical
         const SizedBox(
@@ -128,49 +122,66 @@ class _AsyncAutocompleteState extends State<_AsyncAutocomplete> {
         ),
 
         /// Widget autocomplete untuk masukan teks dan saran.
-        Autocomplete<String>(
-          fieldViewBuilder: (BuildContext context,
-              TextEditingController controller,
-              FocusNode focusNode,
-              VoidCallback onFieldSubmitted) {
-            return TextFormField(
-              decoration: InputDecoration(
-                /// Menampilkan pesan kesalahan jika ada masalah jaringan.
-                errorText:
-                    _networkError ? 'Kesalahan jaringan, coba lagi.' : null,
-              ),
-              controller: controller, // menghubungkan controller text
-              focusNode: focusNode, // mengelola fokus untuk input field
-              onFieldSubmitted: (String value) {
-                onFieldSubmitted(); // memproses input saat di submit
-              },
-            );
-          },
-          optionsBuilder: (TextEditingValue textEditingValue) async {
-            // Reset status kesalahan jaringan.
-            setState(() {
-              _networkError = false;
-            });
-            // Melakukan pencarian dengan debounce.
-            final Iterable<String>? options =
-                await _debouncedSearch(textEditingValue.text);
-            if (options == null) {
-              return _lastOptions; // Gunakan opsi terakhir jika null.
-            }
-            _lastOptions = options; // Perbarui opsi terakhir.
-            return options; // Kembalikan hasil pencarian.
-          },
-          onSelected: (String selection) {
-            // Menampilkan opsi yang dipilih ke konsol.
-            debugPrint('You just selected $selection');
-          },
-        ),
+        autocompleteSearch(),
       ],
+    );
+  }
+
+  ///? widget widget
+  Autocomplete<String> autocompleteSearch() {
+    return Autocomplete<String>(
+      fieldViewBuilder: (BuildContext context, TextEditingController controller,
+          FocusNode focusNode, VoidCallback onFieldSubmitted) {
+        return Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: TextFormField(
+            decoration: InputDecoration(
+              /// Menampilkan pesan kesalahan jika ada masalah jaringan.
+              errorText:
+                  _networkError ? 'Kesalahan jaringan, coba lagi.' : null,
+            ),
+            controller: controller, // menghubungkan controller text
+            focusNode: focusNode, // mengelola fokus untuk input field
+            onFieldSubmitted: (String value) {
+              onFieldSubmitted(); // memproses input saat di submit
+            },
+          ),
+        );
+      },
+      optionsBuilder: (TextEditingValue textEditingValue) async {
+        // Reset status kesalahan jaringan.
+        setState(() {
+          _networkError = false;
+        });
+        // Melakukan pencarian dengan debounce.
+        final Iterable<String>? options =
+            await _debouncedSearch(textEditingValue.text);
+        if (options == null) {
+          return _lastOptions; // Gunakan opsi terakhir jika null.
+        }
+        _lastOptions = options; // Perbarui opsi terakhir.
+        return options; // Kembalikan hasil pencarian.
+      },
+      onSelected: (String selection) {
+        // Menampilkan opsi yang dipilih ke konsol.
+        debugPrint('You just selected $selection');
+      },
+    );
+  }
+
+  Switch switchAktifkanNetwork() {
+    return Switch(
+      value: _networkEnabled,
+      onChanged: (bool? value) {
+        setState(() {
+          _networkEnabled = !_networkEnabled;
+        });
+      },
     );
   }
 }
 
-// Mimics a remote API.
+///? Mimics a remote API.
 class _FakeAPI {
   static const List<String> _kOptions = <String>[
     'aardvark',

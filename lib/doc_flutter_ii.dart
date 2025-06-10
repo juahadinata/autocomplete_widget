@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 
 /// Flutter code sample for [Autocomplete].
 
-class AutocompleteExampleApp extends StatelessWidget {
-  const AutocompleteExampleApp({super.key});
+class AutocompleteExampleApp2 extends StatelessWidget {
+  const AutocompleteExampleApp2({super.key});
 
   @override
   Widget build(BuildContext context) {
