@@ -2,7 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-///? Contoh ini menunjukkan cara membuat widget [Autocomplete] yang opsinya diambil melalui jaringan. Ini mencakup debouncing dan penanganan kesalahan, sehingga permintaan jaringan yang gagal menunjukkan kesalahan kepada pengguna dan dapat dipulihkan. Coba alihkan widget Pengalih jaringan untuk menyimulasikan offline.
+///? Contoh ini menunjukkan cara membuat widget [Autocomplete] yang opsinya diambil melalui jaringan.
+///? Ini mencakup debouncing dan penanganan kesalahan,
+///? sehingga permintaan jaringan yang gagal menunjukkan kesalahan kepada pengguna
+///? dan dapat dipulihkan. Coba alihkan widget Pengalih jaringan untuk menyimulasikan offline.
 
 /// Flutter code sample for [Autocomplete] that demonstrates fetching the
 /// options asynchronously and debouncing the network calls, including handling
@@ -66,10 +69,10 @@ class _AsyncAutocompleteState extends State<_AsyncAutocomplete> {
 
     late final Iterable<String> options;
     try {
-      /// Memanggil API simulasi dengan query dan status jaringan.
+      ///* Memanggil API simulasi dengan query dan status jaringan.
       options = await _FakeAPI.search(_currentQuery!, _networkEnabled);
     } on _NetworkException {
-      /// Jika terjadi kesalahan jaringan, perbarui status error.
+      ///* Jika terjadi kesalahan jaringan, perbarui status error.
       if (mounted) {
         setState(() {
           _networkError = true;
@@ -106,28 +109,28 @@ class _AsyncAutocompleteState extends State<_AsyncAutocomplete> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        /// Menampilkan status jaringan.
+        ///* Menampilkan status jaringan.
         Text(
           _networkEnabled
               ? 'Network is on, toggle to induce network errors.'
               : 'Network is off, toggle to allow requests to go through.',
         ),
 
-        /// Switch untuk mengaktifkan/mematikan jaringan.
+        ///* Switch untuk mengaktifkan/mematikan jaringan.
         switchAktifkanNetwork(),
 
-        /// memberi jarak vertical
+        ///* memberi jarak vertical
         const SizedBox(
           height: 32.0,
         ),
 
-        /// Widget autocomplete untuk masukan teks dan saran.
+        ///* Widget autocomplete untuk masukan teks dan saran.
         autocompleteSearch(),
       ],
     );
   }
 
-  ///? widget widget
+  ///? widget widget pada UI
   Autocomplete<String> autocompleteSearch() {
     return Autocomplete<String>(
       fieldViewBuilder: (BuildContext context, TextEditingController controller,

@@ -1,3 +1,4 @@
+import 'package:autocomplete/contoh_completer/contoh_completer.dart';
 import 'package:autocomplete/doc_flutter_v.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +17,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const AutocompleteExampleAppV(),
+      // home: const AutocompleteExampleAppV(),
+      home: const CompleterSample(),
     );
   }
 }
